@@ -1,6 +1,6 @@
 -- Test with:
--- wrk -t8 -c200 -d30s -s post_data.lua http://localhost:4000/carts/redis
--- wrk -t8 -c200 -d30s -s post_data.lua http://localhost:4000/carts/sql
+-- wrk -t8 -c200 -d30s -s cart_tes.lua http://localhost:4000/carts/redis
+-- wrk -t8 -c200 -d30s -s cart_tes.lua http://localhost:4000/carts/sql
 
 
 wrk.method = "POST"
