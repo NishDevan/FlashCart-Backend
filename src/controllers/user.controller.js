@@ -3,6 +3,39 @@ const { AppError } = require('../middleware/errorHandler');
 const { redis } = require('../config/redis');
 
 class UserController {
+
+    static async getMe(req, res, next) {
+        try {
+            const id = req.user.id; 
+            const cacheKey = `user:${id}`;
+
+            const cached = await redis.get(cacheKey);
+            if (cached) {
+                return res.status(200).json({
+                    success: true,
+                    message: 'Current user retrieved (cache hit)',
+                    payload: JSON.parse(cached),
+                });
+            }
+
+            const user = await UserService.getUserById(id);
+
+            if (user.password) {
+                delete user.password;
+            }
+
+            await redis.set(cacheKey, JSON.stringify(user), 'EX', 60);
+
+            return res.status(200).json({
+                success: true,
+                message: 'Current user retrieved (cache miss)',
+                payload: user,
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+
     static async register(req, res, next) {
         try {
             const { username, email, password } = req.body;

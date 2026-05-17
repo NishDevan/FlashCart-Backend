@@ -7,6 +7,8 @@ const { userRegistrationValidation, userUpdateValidation, validate } = require('
 router.post('/register', userRegistrationValidation, validate, UserController.register);
 
 router.put('/update', authenticateToken, userUpdateValidation, validate, UserController.updateProfile);
+router.get('/me', authenticateToken, UserController.getMe);
+
 router.get('/email/:email', authenticateToken, UserController.getUserByEmail);
 router.get('/id/:id', authenticateToken, UserController.getUserById);
 
