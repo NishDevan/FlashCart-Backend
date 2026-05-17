@@ -141,7 +141,7 @@ Mengupdate informasi barang (hanya pemilik / seller yang bisa). request body nya
         }
     ```
     ![image](https://hackmd.io/_uploads/rkJEbCUyGx.png)
-    - Delete /products/:id
+- Delete /products/:id
     Menghapus barang dari toko (hanya pemilik / seller yang bisa).
 ![image](https://hackmd.io/_uploads/S1rPZRIkze.png)
 ![image](https://hackmd.io/_uploads/Bk62WRLyfx.png)
