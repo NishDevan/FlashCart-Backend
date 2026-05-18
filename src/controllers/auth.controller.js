@@ -9,7 +9,7 @@ class AuthController {
             const token = jwt.sign(
                 { id: user.id, email: user.email },
                 process.env.JWT_SECRET,
-                { expiresIn: '1d' } // Misal valid 1 hari
+                { expiresIn: '1d' }
             );
 
             res.cookie('token', token, {
@@ -27,6 +27,24 @@ class AuthController {
                     username: user.username,
                     email: user.email
                 },
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    static async logout(req, res, next) {
+        try {
+            res.clearCookie('token', {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+            });
+
+            res.status(200).json({
+                success: true,
+                message: 'Logout successful',
+                payload: null,
             });
         } catch (error) {
             next(error);
