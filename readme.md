@@ -1,4 +1,4 @@
-## FlashCart
+# FlashCart
 
 ```
 Disclaimer: To test the cart with lua file, please install the wrk with code bellow
@@ -104,6 +104,18 @@ Untuk login, body requestnya:
     }
     ```
     ![image](https://hackmd.io/_uploads/H1BXkRIJfe.png)
+- POST /auth/logout
+Untuk melakukan Logout
+
+    Sebelum  Logout
+    ![image](https://hackmd.io/_uploads/H19dDE_1zx.png)
+    
+    Logout (POST dengan body kosong)
+    ![image](https://hackmd.io/_uploads/HJXaPNOyfg.png)
+
+    Setelah Logout
+    ![image](https://hackmd.io/_uploads/HygZ_Eukze.png)
+
 - GET /users/me
 Untuk mendapatkan informasi user yang sedang login saat ini
 ![image](https://hackmd.io/_uploads/Byxk80IJGl.png)
