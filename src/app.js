@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const productRoutes = require('./routes/product.routes');
 const cartRoutes = require('./routes/cart.routes');
+const inventoryRoutes = require('./routes/inventory.routes');
 
 const app = express();
 const cookieParser = require('cookie-parser');
@@ -37,7 +38,8 @@ app.use('/users/register', authLimiter);
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
-app.use('/carts',cartRoutes);
+app.use('/carts', cartRoutes);
+app.use('/inventory', inventoryRoutes);
 
 app.get('/health', (req, res) => {
     res.status(200).json({
