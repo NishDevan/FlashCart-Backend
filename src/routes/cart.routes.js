@@ -10,9 +10,13 @@ router.get('/sql', CartController.getCartSQL);
 router.put('/sql/:productId', CartController.updateCartSQL);
 router.delete('/sql/:productId', CartController.removeItemSQL);
 
+// Checkout must come before /:productId routes to avoid Express treating
+// "checkout" as a :productId parameter.
+router.post('/redis/checkout', CartController.checkoutRedis);
+
 router.post('/redis', CartController.addToCartRedis);
 router.get('/redis', CartController.getCartRedis);
 router.put('/redis/:productId', CartController.updateCartRedis);
 router.delete('/redis/:productId', CartController.removeItemRedis);
 
-module.exports = router;
+module.exports = router;

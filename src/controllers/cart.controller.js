@@ -122,6 +122,26 @@ class CartController {
             });
         } catch (error) { next(error); }
     }
+
+    /**
+     * POST /carts/redis/checkout
+     * Flush the Redis cart into Postgres and clear the Redis key.
+     */
+    static async checkoutRedis(req, res, next) {
+        try {
+            const userId = req.user.id;
+            const result = await CartService.checkoutRedis(userId);
+
+            res.status(200).json({
+                success: true,
+                message: result.message,
+                payload: {
+                    items_saved: result.items_saved,
+                    items: result.items,
+                },
+            });
+        } catch (error) { next(error); }
+    }
 }
 
-module.exports = CartController;
+module.exports = CartController;
