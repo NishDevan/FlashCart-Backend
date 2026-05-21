@@ -362,38 +362,6 @@ Response menyertakan sisa stok setelah penambahan:
 **`POST /carts/redis/checkout`** — Memindahkan semua item dari Redis ke PostgreSQL (tabel `carts` + `cart_items`), lalu menghapus key Redis. Stok **tidak dikembalikan** karena item sudah resmi di-checkout.
 
 ---
-
-## Load Testing
-
-Untuk membandingkan performa Redis vs PostgreSQL cart:
-
-```bash
-# Install wrk (Linux/WSL)
-sudo apt update && sudo apt install wrk
-
-# Test Redis cart
-wrk -t8 -c200 -d30s -s cart_tes.lua http://localhost:4000/carts/redis
-
-# Test SQL cart
-wrk -t8 -c200 -d30s -s cart_tes.lua http://localhost:4000/carts/sql
-```
-
-> Edit `cart_tes.lua` dan ganti `<GANTI_INI_JADI_TOKEN>` dengan cookie token yang valid dari browser/Postman.
-
----
-
-## Local Test Suite
-
-Untuk menjalankan end-to-end test yang mencakup seluruh alur Redis (register → login → cek inventory → add to cart → checkout → logout → verifikasi session invalid):
-
-```bash
-# Pastikan server sudah berjalan terlebih dahulu
-node index.js
-
-# Di terminal lain
-node test_local.js
-```
-
 Output yang diharapkan — semua ✅:
 ```
 ✅ [201] POST /users/register
