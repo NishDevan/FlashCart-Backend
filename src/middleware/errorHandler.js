@@ -20,7 +20,6 @@ class AppError extends Error {
         stack: err.stack,
         });
     } else {
-        // Production: don't leak error details
         if (err.isOperational) {
         res.status(err.statusCode).json({
             success: false,
@@ -28,8 +27,7 @@ class AppError extends Error {
             payload: null,
         });
         } else {
-        // Programming or unknown errors
-        console.error('ERROR 💥', err);
+        console.error('ERROR', err);
         res.status(500).json({
             success: false,
             message: 'Something went wrong',
