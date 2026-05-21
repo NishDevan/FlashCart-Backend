@@ -10,7 +10,6 @@ db.query('SELECT NOW()')
     .then(async () => {
         console.log('Database connected successfully');
 
-        // ── Sync inventory:{product_id} keys into Redis on startup ───────────
         await InventoryService.syncFromPostgres();
 
         app.listen(PORT, () => {
@@ -21,4 +20,4 @@ db.query('SELECT NOW()')
     .catch((err) => {
         console.error('Database connection failed:', err);
         process.exit(1);
-    });
+    });
