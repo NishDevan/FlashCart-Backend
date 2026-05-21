@@ -182,6 +182,54 @@ class CartService {
             items: savedItems,
         };
     }
+
+    /**
+     * Retrieve ALL active Redis carts across every user.
+     * Uses SCAN (non-blocking) to find every `cart:*` key, then
+     * pipelines HGETALL for each one so we hit Redis in one round-trip.
+     */
+    static async getAllCartsRedis() {
+        // SCAN iterates the keyspace without blocking Redis (unlike KEYS)
+        let cursor = '0';
+        const cartKeys = [];
+
+        do {
+            const [nextCursor, keys] = await redis.scan(cursor, 'MATCH', 'cart:*', 'COUNT', 100);
+            cursor = nextCursor;
+            cartKeys.push(...keys);
+        } while (cursor !== '0');
+
+        if (cartKeys.length === 0) {
+            return { total_carts: 0, carts: [] };
+        }
+
+        // Pipeline all HGETALL calls into a single Redis round-trip
+        const pipeline = redis.pipeline();
+        for (const key of cartKeys) {
+            pipeline.hgetall(key);
+        }
+        const results = await pipeline.exec();
+
+        const carts = [];
+        for (let i = 0; i < cartKeys.length; i++) {
+            const [err, cartData] = results[i];
+            if (err || !cartData || Object.keys(cartData).length === 0) continue;
+
+            // Key format is  cart:{userId}  — extract the userId
+            const userId = cartKeys[i].replace('cart:', '');
+
+            carts.push({
+                user_id: userId,
+                item_count: Object.keys(cartData).length,
+                items: Object.entries(cartData).map(([productId, qty]) => ({
+                    product_id: productId,
+                    quantity: parseInt(qty, 10),
+                })),
+            });
+        }
+
+        return { total_carts: carts.length, carts };
+    }
 }
 
 module.exports = CartService;
