@@ -8,6 +8,9 @@ const PORT = process.env.PORT || 4000;
 db.query('SELECT NOW()')
     .then(() => {
         console.log('Database connected successfully');
+
+        await InventoryService.syncFromPostgres();
+
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
             console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
@@ -17,4 +20,3 @@ db.query('SELECT NOW()')
         console.error('Database connection failed:', err);
         process.exit(1);
     });
-
