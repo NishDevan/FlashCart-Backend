@@ -3,9 +3,9 @@
 > **Kelompok 3** — Mini Project SBD (Sistem Basis Data)
 > - Raihan Muhammad Nafis Al-Kautsar (2406413451)
 > - Mirza Adi Raffiansyah (2306210323)
-> -
-> -
-> -
+> - Danish Putra Devananda (2406354202)
+> - Safina Amarani (2406415665)
+> - Ayesha Zelene Faeyza (2406359166)
 
 FlashCart adalah backend service berkecepatan tinggi untuk manajemen keranjang belanja sementara dan validasi sesi pengguna secara real-time. Didesain untuk platform e-commerce skala menengah hingga besar yang sering mengadakan **flash sale**, di mana sistem harus menangani ribuan permintaan add-to-cart secara bersamaan tanpa membebani database utama (PostgreSQL).
 
