@@ -1,0 +1,5 @@
+﻿Latency;Redis;SQL;Redis vs SQL;;Requests;Redis;SQL;Redis vs SQL;
+AVG(ms);819,73;1390;41%;;Requests/sec;191,44;48,58;3,94;times
+Max(ms);1440;1980;27%;;Timeout;200;426;53%;less
+Summary;Redis is faster than SQL;;;;Transfer/sec (KB/s);215,67;59,83;260%;more
+;;;;;Summary;Redis can handle more requests;;;
