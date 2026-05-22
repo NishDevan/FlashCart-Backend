@@ -1,13 +1,12 @@
 require('dotenv').config();
 const app = require('./src/app');
 const db = require('./src/config/postgres');
-const InventoryService = require('./src/services/inventory.service');
 
 const PORT = process.env.PORT || 4000;
 
-// Test database connection, then sync inventory to Redis, then start server
+// Test database connection
 db.query('SELECT NOW()')
-    .then(async () => {
+    .then(() => {
         console.log('Database connected successfully');
 
         await InventoryService.syncFromPostgres();

@@ -142,6 +142,22 @@ class CartController {
             });
         } catch (error) { next(error); }
     }
+
+    /**
+     * GET /carts/redis/all
+     * Returns every active cart:{userId} hash currently stored in Redis.
+     */
+    static async getAllCartsRedis(req, res, next) {
+        try {
+            const result = await CartService.getAllCartsRedis();
+
+            res.status(200).json({
+                success: true,
+                message: `Found ${result.total_carts} active cart(s) in Redis`,
+                payload: result,
+            });
+        } catch (error) { next(error); }
+    }
 }
 
 module.exports = CartController;
