@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 4000;
 
 // Test database connection
 db.query('SELECT NOW()')
-    .then(() => {
+    .then(async () => {
         console.log('Database connected successfully');
 
         await InventoryService.syncFromPostgres();
