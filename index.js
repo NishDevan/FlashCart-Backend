@@ -1,6 +1,7 @@
 require('dotenv').config();
 const app = require('./src/app');
 const db = require('./src/config/postgres');
+const InventoryService = require('./src/services/inventory.service');
 
 const PORT = process.env.PORT || 4000;
 
